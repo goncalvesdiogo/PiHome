@@ -20,8 +20,7 @@ public class ApplicationBean {
     
     @PostConstruct
     public void init(){
-        texto = "Hello!";
-        System.out.println("TESTE");
+        texto = "Hello!";        
     }
 
     public String getTexto() {
@@ -30,8 +29,5 @@ public class ApplicationBean {
 
     public void setTexto(String texto) {
         this.texto = texto;
-    }
-    
-    
-    
+    }   
 }
