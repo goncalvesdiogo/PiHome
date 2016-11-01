@@ -12,15 +12,18 @@ import javax.faces.bean.ManagedBean;
 
 
 
-@ManagedBean(eager=true)
+@ManagedBean(eager=false)
 @ApplicationScoped
 public class ApplicationBean {
     
     private String texto;
+    private Double temperature;
+    private Double humidity;
     
     @PostConstruct
     public void init(){
-        texto = "Hello!";        
+        texto = "Hello!";       
+        setTemperature(25.6);
     }
 
     public String getTexto() {
@@ -29,5 +32,23 @@ public class ApplicationBean {
 
     public void setTexto(String texto) {
         this.texto = texto;
-    }   
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
+
+    public Double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(Double humidity) {
+        this.humidity = humidity;
+    }
+    
+    
 }
