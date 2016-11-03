@@ -19,7 +19,8 @@ import org.primefaces.model.chart.MeterGaugeChartModel;
 @ManagedBean
 public class Menu {
 
-    private MeterGaugeChartModel meterGaugeModel1;
+    private MeterGaugeChartModel meterGaugeTemperature;
+    private MeterGaugeChartModel meterGaugeHumidity;
     private String usuario;
     private ApplicationBean applicationBean;
 
@@ -42,11 +43,15 @@ public class Menu {
         this.usuario = usuario;
     }
 
-    public MeterGaugeChartModel getMeterGaugeModel1() {
-        return meterGaugeModel1;
+    public MeterGaugeChartModel getMeterGaugeTemperature() {
+        return meterGaugeTemperature;
     }
 
-    private MeterGaugeChartModel initMeterGaugeModel() {
+    public MeterGaugeChartModel getMeterGaugeHumidity() {
+        return meterGaugeHumidity;
+    }
+
+    private MeterGaugeChartModel initMeterGaugeModelTemperature() {
         List<Number> intervals = new ArrayList<Number>() {
             {
                 add(20);
@@ -70,22 +75,66 @@ public class Menu {
         return new MeterGaugeChartModel(10, intervals, ticks);
     }
 
+    private MeterGaugeChartModel initMeterGaugeModelHumidity() {
+        List<Number> intervals = new ArrayList<Number>() {
+            {
+                add(20);
+                add(40);
+                add(60);
+                add(80);
+                add(100);
+            }
+        };
+
+        List<Number> ticks = new ArrayList<Number>() {
+            {
+                add(0);
+                add(20);
+                add(40);
+                add(60);
+                add(80);
+                add(100);
+            }
+        };
+
+        return new MeterGaugeChartModel(10, intervals, ticks);
+    }
+
     public void createGaugeModel() {
         usuario = "Diogo";
         System.out.println(">>>>>>>>>>>>>>>>MENU ABERTO<<<<<<<<<<<<<<<");
-        meterGaugeModel1 = initMeterGaugeModel();
-        meterGaugeModel1.setSeriesColors("3498DB,F39C12,E74C3C");
-        //meterGaugeModel1.setGaugeLabel("°C");
-        meterGaugeModel1.setGaugeLabelPosition("bottom");
-        meterGaugeModel1.setMin(10);
-        meterGaugeModel1.setMax(40);
-        meterGaugeModel1.setShowTickLabels(true);
-        meterGaugeModel1.setLabelHeightAdjust(5);
-        meterGaugeModel1.setIntervalOuterRadius(26);
+        meterGaugeTemperature = initMeterGaugeModelTemperature();
+        meterGaugeTemperature.setSeriesColors("3498DB,F39C12,E74C3C");
+        meterGaugeTemperature.setGaugeLabel(meterGaugeTemperature.getValue() + " °C");
+        meterGaugeTemperature.setGaugeLabelPosition("bottom");
+        meterGaugeTemperature.setMin(10);
+        meterGaugeTemperature.setMax(40);
+        meterGaugeTemperature.setShowTickLabels(true);
+        meterGaugeTemperature.setLabelHeightAdjust(0);
+        meterGaugeTemperature.setIntervalOuterRadius(23);
+
+        meterGaugeHumidity = initMeterGaugeModelHumidity();
+        meterGaugeHumidity.setSeriesColors("E74C3C,F39C12,3498DB,F39C12,E74C3C");
+        meterGaugeHumidity.setGaugeLabel(meterGaugeHumidity.getValue() + " %");
+        meterGaugeHumidity.setGaugeLabelPosition("bottom");
+        meterGaugeHumidity.setMin(0);
+        meterGaugeHumidity.setMax(100);
+        meterGaugeHumidity.setShowTickLabels(true);
+        meterGaugeHumidity.setLabelHeightAdjust(0);
+        meterGaugeHumidity.setIntervalOuterRadius(23);
     }
 
-    public void setMeterGaugeValue() {
-        this.meterGaugeModel1.setValue(applicationBean.getTemperature());
+    public void updateMeterGaugesValue(){
+        updateMeterGaugeTemperature();
+        updateMeterGaugeHumidity();
+    }
+    
+    public void updateMeterGaugeTemperature() {
+        this.meterGaugeTemperature.setValue(applicationBean.getTemperature());
+    }
+    
+    public void updateMeterGaugeHumidity() {
+        this.meterGaugeHumidity.setValue(applicationBean.getHumidity());
     }
 
 }

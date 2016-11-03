@@ -28,16 +28,28 @@
             }
 
             .panelGridPrincipal tr,
-            .panelGridPrincipal td{                
+            .panelGridPrincipal td,
+            .ui-panelgrid .ui-panelgrid-cell{                
                 border-style: none !important;
-                background-color: #6294ff; 
-            }            
+                background-color: #4b654e;
+                padding: 0px 0px;
+            }                  
+            
+            .jqplot-series-shadowCanvas{
+                background: #4b654e;
+            }
+            
+            .jqplot-target{
+                font-size: 0.85em;
+            }
+            
+            
         </style>        
         <!-- ############################################################### -->
     </h:head>   
     <h:body>
         <h:form id="idFormLogin">
-            <p:poll interval="30" listener="#{menu.setMeterGaugeValue()}" update="idPanelMenu"/>
+            
             <center>
                 <p:spacer width="100%" height="2em"/>
                 <p:panel id="idPanelPrincipal" styleClass="panelPrincipal" >
@@ -47,8 +59,10 @@
 
                     <p:spacer width="100%" height="2em"/>
                     <p:panel id="idPanelMenu" styleClass="panelMenu" >
-                        <p:chart type="metergauge" model="#{menu.meterGaugeModel1}" style="width:10em;height:7em; float: top" />                        
-                        <p:chart type="metergauge" model="#{menu.meterGaugeModel1}" style="width:10em;height:7em;" />                        
+                        <p:panelGrid columns="2" styleClass="panelGridPrincipal">
+                        <p:chart type="metergauge" model="#{menu.meterGaugeTemperature}"    style="width:11em;height:9em; float: top" />                        
+                        <p:chart type="metergauge" model="#{menu.meterGaugeHumidity}"       style="width:11em;height:9em; float: top" />                        
+                        </p:panelGrid>
                     </p:panel>
                 </p:panel>
             </center>
