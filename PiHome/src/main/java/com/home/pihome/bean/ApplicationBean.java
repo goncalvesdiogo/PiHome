@@ -2,26 +2,31 @@ package com.home.pihome.bean;
 
 
 import com.home.pihome.gpio.JnaController;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 
 
 
 @ManagedBean(eager=true)
-@ApplicationScoped
-public class ApplicationBean {
+public class ApplicationBean implements Serializable{
     
+    private static ApplicationBean instance = null;
     private String texto;
     private Double temperature;
     private Double humidity;
     JnaController jna;
     
-    public ApplicationBean(){
-        jna = new JnaController();
-        jna.initDht22Lib();        
-    }
-
+    
+    public ApplicationBean getInstance() {
+        if(instance == null) {    
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>ApplicationBean<<<<<<<<<<<<<<<<<");
+            instance = new ApplicationBean();
+            jna = new JnaController();
+            //jna.initDht22Lib();
+        }
+        return instance;
+    }    
+    
     public String getTexto() {
         return texto;
     }
