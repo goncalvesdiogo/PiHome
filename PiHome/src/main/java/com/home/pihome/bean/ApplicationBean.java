@@ -1,29 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.home.pihome.bean;
 
 
+import com.home.pihome.gpio.JnaController;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
 
 
-@ManagedBean(eager=false)
+@ManagedBean(eager=true)
 @ApplicationScoped
 public class ApplicationBean {
     
     private String texto;
     private Double temperature;
     private Double humidity;
+    JnaController jna;
     
-    @PostConstruct
-    public void init(){
-        texto = "Hello!";       
-        setTemperature(25.6);
+    public ApplicationBean(){
+        jna = new JnaController();
+        jna.initDht22Lib();        
     }
 
     public String getTexto() {
@@ -34,7 +30,7 @@ public class ApplicationBean {
         this.texto = texto;
     }
 
-    public Double getTemperature() {
+    public Double getTemperature() {        
         return temperature;
     }
 

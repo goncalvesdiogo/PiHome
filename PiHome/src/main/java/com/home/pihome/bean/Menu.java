@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.home.pihome.bean;
 
 import java.util.ArrayList;
@@ -12,10 +7,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.primefaces.model.chart.MeterGaugeChartModel;
 
-/**
- *
- * @author 558865
- */
 @ManagedBean
 public class Menu {
 
@@ -30,7 +21,6 @@ public class Menu {
         FacesContext context = FacesContext.getCurrentInstance();
         applicationBean = context.getApplication().evaluateExpressionGet(context, "#{applicationBean}", ApplicationBean.class);
 
-        System.out.println(">>>>>>>>>>>>>>>>MENU ABERTO<<<<<<<<<<<<<<<");
         createGaugeModel();
 
     }
@@ -102,7 +92,6 @@ public class Menu {
 
     public void createGaugeModel() {
         usuario = "Diogo";
-        System.out.println(">>>>>>>>>>>>>>>>MENU ABERTO<<<<<<<<<<<<<<<");
         meterGaugeTemperature = initMeterGaugeModelTemperature();
         meterGaugeTemperature.setSeriesColors("3498DB,F39C12,E74C3C");
         meterGaugeTemperature.setGaugeLabel(meterGaugeTemperature.getValue() + " °C");
@@ -124,15 +113,15 @@ public class Menu {
         meterGaugeHumidity.setIntervalOuterRadius(23);
     }
 
-    public void updateMeterGaugesValue(){
+    public void updateMeterGaugesValue() {
         updateMeterGaugeTemperature();
         updateMeterGaugeHumidity();
     }
-    
+
     public void updateMeterGaugeTemperature() {
         this.meterGaugeTemperature.setValue(applicationBean.getTemperature());
     }
-    
+
     public void updateMeterGaugeHumidity() {
         this.meterGaugeHumidity.setValue(applicationBean.getHumidity());
     }

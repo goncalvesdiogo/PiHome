@@ -49,7 +49,7 @@
     </h:head>   
     <h:body>
         <h:form id="idFormLogin">
-            
+            <p:poll interval="20" listener="#{menu.updateMeterGaugesValue()}" update="idPanelMenu"/>
             <center>
                 <p:spacer width="100%" height="2em"/>
                 <p:panel id="idPanelPrincipal" styleClass="panelPrincipal" >
