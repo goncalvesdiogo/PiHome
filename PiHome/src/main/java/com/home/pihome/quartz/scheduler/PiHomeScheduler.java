@@ -35,7 +35,7 @@ public class PiHomeScheduler {
         JobDetail job = JobBuilder.newJob(PiHomeDht22Job.class).withIdentity("job" + jobName, "group" + jobName).build();
         Trigger trigger = TriggerBuilder.newTrigger().withIdentity("job" + jobName, "group" + jobName).withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(timeInSeconds).repeatForever()).build();
         scheduler.scheduleJob(job, trigger);
-        scheduler.start();
+        scheduler.startDelayed(30);
     }
 
 }

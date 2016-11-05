@@ -22,7 +22,7 @@ public class ApplicationBean implements Serializable{
             System.out.println(">>>>>>>>>>>>>>>>>>>>>ApplicationBean<<<<<<<<<<<<<<<<<");
             instance = new ApplicationBean();
             jna = new JnaController();
-            //jna.initDht22Lib();
+            jna.initWiringPi();
         }
         return instance;
     }    
