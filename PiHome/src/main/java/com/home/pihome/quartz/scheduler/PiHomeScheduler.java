@@ -17,7 +17,7 @@ public class PiHomeScheduler {
     public static void init() {
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
-            iniciarDht22Job("IniciarDht22Job", 20);
+            iniciarDht22Job("IniciarDht22Job", 25);
         } catch (SchedulerException se) {
             System.out.println("Exception: " + se);
         }
@@ -35,7 +35,7 @@ public class PiHomeScheduler {
         JobDetail job = JobBuilder.newJob(PiHomeDht22Job.class).withIdentity("job" + jobName, "group" + jobName).build();
         Trigger trigger = TriggerBuilder.newTrigger().withIdentity("job" + jobName, "group" + jobName).withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(timeInSeconds).repeatForever()).build();
         scheduler.scheduleJob(job, trigger);
-        scheduler.startDelayed(30);
+        scheduler.startDelayed(15);
     }
 
 }

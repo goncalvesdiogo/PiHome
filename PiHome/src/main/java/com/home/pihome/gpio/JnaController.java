@@ -1,10 +1,13 @@
 package com.home.pihome.gpio;
 
+import com.home.pihome.bean.ApplicationBean;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.ptr.DoubleByReference;
 
 public class JnaController {
+    
+    public ApplicationBean applicationBean = new ApplicationBean().getInstance();
 
     public interface DhtLib extends Library {
 
@@ -33,12 +36,15 @@ public class JnaController {
             DhtLib dht = (DhtLib) Native.loadLibrary("dht22.so", DhtLib.class);
 
             while (dht.read_dht22_dat(7, temperature, humidity) == 0 && tries > 0) {
-                tries--;
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                tries--;               
+            }
+            
+            if(temperature.getValue() > 0 && humidity.getValue() > 0){
+              applicationBean.setTemperature(temperature.getValue());
+              applicationBean.setHumidity(humidity.getValue());
+              System.out.println("Temperature: " + applicationBean.getTemperature() + " - Humidity: " + applicationBean.getHumidity());
+            }else{
+                System.out.println("Bad data...");
             }
 
         } catch (Exception e) {

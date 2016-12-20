@@ -11,7 +11,7 @@ import org.quartz.JobExecutionException;
 @DisallowConcurrentExecution
 public class PiHomeDht22Job implements Job {
 
-    public ApplicationBean applicationBean = new ApplicationBean().getInstance();
+   
     private JnaController jna = new JnaController();
     private DoubleByReference temperature;
     private DoubleByReference humidity;
@@ -21,12 +21,14 @@ public class PiHomeDht22Job implements Job {
         try {
             System.out.println(">>>>>>>>>>>>>>>>>>>>>PiHomeDht22Job<<<<<<<<<<<<<<<<<");
 
-            int tries = 1000;
+            int tries = 10;
 
             temperature = new DoubleByReference(-99);
             humidity = new DoubleByReference(-99);
 
             jna.getDht22Data(temperature, humidity, tries);
+            
+            
 
         } catch (Exception e) {
             System.out.println("Exception: " + e);

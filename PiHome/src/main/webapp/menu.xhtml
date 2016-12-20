@@ -35,11 +35,21 @@
                 padding: 0px 0px;
             }                  
             
-            .jqplot-series-shadowCanvas{
+            .jqplot-series-shadowCanvas,
+            .jqplot-event-canvas
+            .jqplot-target {
+                border: none !important;
                 background: #4b654e;
             }
             
+            .jqplot-event-canvas,
+            .jqplot-series-shadowCanvas{
+                border: none !important;
+            }
+            
+            
             .jqplot-target{
+                border: none !important;
                 font-size: 0.85em;
             }
             
@@ -49,7 +59,7 @@
     </h:head>   
     <h:body>
         <h:form id="idFormLogin">
-            <p:poll interval="20" listener="#{menu.updateMeterGaugesValue()}" update="idPanelMenu"/>
+            <p:poll interval="5" listener="#{menu.updateMeterGaugesValue()}" update="idPanelMenu"/>
             <center>
                 <p:spacer width="100%" height="2em"/>
                 <p:panel id="idPanelPrincipal" styleClass="panelPrincipal" >

@@ -9,18 +9,17 @@ import org.primefaces.model.chart.MeterGaugeChartModel;
 
 @ManagedBean
 public class Menu {
-
+    
+    private ApplicationBean applicationBean = new ApplicationBean().getInstance();
     private MeterGaugeChartModel meterGaugeTemperature;
     private MeterGaugeChartModel meterGaugeHumidity;
     private String usuario;
-    private ApplicationBean applicationBean;
-
+    
     @PostConstruct
     public void init() {
         usuario = "Diogo";
         FacesContext context = FacesContext.getCurrentInstance();
-        applicationBean = context.getApplication().evaluateExpressionGet(context, "#{applicationBean}", ApplicationBean.class);
-
+    
         createGaugeModel();
 
     }
@@ -120,10 +119,14 @@ public class Menu {
 
     public void updateMeterGaugeTemperature() {
         this.meterGaugeTemperature.setValue(applicationBean.getTemperature());
+        this.meterGaugeTemperature.setGaugeLabel(meterGaugeTemperature.getValue() + " °C");
+        
     }
 
     public void updateMeterGaugeHumidity() {
         this.meterGaugeHumidity.setValue(applicationBean.getHumidity());
+        this.meterGaugeHumidity.setGaugeLabel(meterGaugeHumidity.getValue() + " %");
+        
     }
 
 }
