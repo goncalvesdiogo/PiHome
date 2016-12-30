@@ -17,7 +17,7 @@ public class PiHomeScheduler {
     public static void init() {
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
-            iniciarDht22Job("IniciarDht22Job", 25);
+            iniciarDht22Job("IniciarDht22Job", 30);
         } catch (SchedulerException se) {
             System.out.println("Exception: " + se);
         }
