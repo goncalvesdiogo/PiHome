@@ -1,6 +1,10 @@
 package com.home.pihome.bean;
 
 import com.home.pihome.gpio.JnaController;
+import com.pi4j.platform.PlatformManager;
+import com.pi4j.system.NetworkInfo;
+import com.pi4j.system.SystemInfo;
+import java.io.IOException;
 
 public class ApplicationBean {
 
@@ -8,7 +12,16 @@ public class ApplicationBean {
     private String texto;
     private Double temperature;
     private Double humidity;
-    JnaController jna;
+    private Double cpuTemp;
+    private Double cpuVoltage;
+    private Double memoryTotal;
+    private Double memoryUsed;
+    private Double memoryFree;
+    private Double armFreq;
+    private Double clockFreq;
+    private String lastValidRead;
+
+    private JnaController jna;
 
     public ApplicationBean getInstance() {
         if (instance == null) {
@@ -18,6 +31,24 @@ public class ApplicationBean {
             jna.initWiringPi();
         }
         return instance;
+    }
+
+    public void updateSystemInfo() {
+        try {
+            
+
+            this.cpuTemp = Double.valueOf(SystemInfo.getCpuTemperature());
+            this.cpuVoltage = Double.valueOf(SystemInfo.getCpuVoltage());
+            this.memoryTotal = Double.valueOf(SystemInfo.getMemoryTotal()/1048576);
+            this.memoryUsed = Double.valueOf(SystemInfo.getMemoryUsed()/1048576);
+            this.memoryFree = Double.valueOf(SystemInfo.getMemoryFree()/1048576);
+            this.armFreq = Double.valueOf(SystemInfo.getClockFrequencyArm()/1000000);
+            this.clockFreq = Double.valueOf(SystemInfo.getClockFrequencyCore()/1000000);
+        } catch (InterruptedException iex) {
+
+        } catch (IOException ioex) {
+
+        }
     }
 
     public String getTexto() {
@@ -42,6 +73,78 @@ public class ApplicationBean {
 
     public void setHumidity(Double humidity) {
         this.humidity = humidity;
+    }
+
+    public JnaController getJna() {
+        return jna;
+    }
+
+    public void setJna(JnaController jna) {
+        this.jna = jna;
+    }
+
+    public Double getCpuTemp() {
+        return cpuTemp;
+    }
+
+    public void setCpuTemp(Double cpuTemp) {
+        this.cpuTemp = cpuTemp;
+    }
+
+    public Double getCpuVoltage() {
+        return cpuVoltage;
+    }
+
+    public void setCpuVoltage(Double cpuVoltage) {
+        this.cpuVoltage = cpuVoltage;
+    }
+
+    public Double getMemoryTotal() {
+        return memoryTotal;
+    }
+
+    public void setMemoryTotal(Double memoryTotal) {
+        this.memoryTotal = memoryTotal;
+    }
+
+    public Double getMemoryUsed() {
+        return memoryUsed;
+    }
+
+    public void setMemoryUsed(Double memoryUsed) {
+        this.memoryUsed = memoryUsed;
+    }
+
+    public Double getMemoryFree() {
+        return memoryFree;
+    }
+
+    public void setMemoryFree(Double memoryFree) {
+        this.memoryFree = memoryFree;
+    }
+
+    public Double getArmFreq() {
+        return armFreq;
+    }
+
+    public void setArmFreq(Double armFreq) {
+        this.armFreq = armFreq;
+    }
+
+    public Double getClockFreq() {
+        return clockFreq;
+    }
+
+    public void setClockFreq(Double clockFreq) {
+        this.clockFreq = clockFreq;
+    }
+
+    public String getLastValidRead() {
+        return lastValidRead;
+    }
+
+    public void setLastValidRead(String lastValidRead) {
+        this.lastValidRead = lastValidRead;
     }
 
 }

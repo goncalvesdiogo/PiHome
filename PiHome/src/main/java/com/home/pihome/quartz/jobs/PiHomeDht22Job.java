@@ -1,6 +1,5 @@
 package com.home.pihome.quartz.jobs;
 
-import com.home.pihome.bean.ApplicationBean;
 import com.home.pihome.gpio.JnaController;
 import com.sun.jna.ptr.DoubleByReference;
 import org.quartz.DisallowConcurrentExecution;
@@ -11,8 +10,7 @@ import org.quartz.JobExecutionException;
 @DisallowConcurrentExecution
 public class PiHomeDht22Job implements Job {
 
-   
-    private JnaController jna = new JnaController();
+    private JnaController jna;
     private DoubleByReference temperature;
     private DoubleByReference humidity;
 
@@ -25,8 +23,9 @@ public class PiHomeDht22Job implements Job {
 
             temperature = new DoubleByReference(-99);
             humidity = new DoubleByReference(-99);
-
+            jna = new JnaController();
             jna.getDht22Data(temperature, humidity, tries);
+            
             
             
 

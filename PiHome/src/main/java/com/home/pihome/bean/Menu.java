@@ -115,6 +115,7 @@ public class Menu {
     public void updateMeterGaugesValue() {
         updateMeterGaugeTemperature();
         updateMeterGaugeHumidity();
+        this.applicationBean.updateSystemInfo();
     }
 
     public void updateMeterGaugeTemperature() {
@@ -127,6 +128,14 @@ public class Menu {
         this.meterGaugeHumidity.setValue(applicationBean.getHumidity());
         this.meterGaugeHumidity.setGaugeLabel(meterGaugeHumidity.getValue() + " %");
         
+    }
+
+    public ApplicationBean getApplicationBean() {
+        return applicationBean;
+    }
+
+    public void setApplicationBean(ApplicationBean applicationBean) {
+        this.applicationBean = applicationBean;
     }
 
 }

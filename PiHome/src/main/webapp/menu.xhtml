@@ -13,7 +13,7 @@
         <style>
             .panelPrincipal{
                 border: none;
-                height:15em;
+                height:25em;
                 width:80%;                         
                 background-color: #6294ff; 
                 border-radius: 0.5em;
@@ -21,7 +21,7 @@
 
             .panelMenu{
                 border: none;
-                height:8em;
+                height:17em;
                 width:90%;                         
                 background-color: #4b654e; 
                 border-radius: 0.5em;
@@ -34,32 +34,32 @@
                 background-color: #4b654e;
                 padding: 0px 0px;
             }                  
-            
+
             .jqplot-series-shadowCanvas,
             .jqplot-event-canvas
             .jqplot-target {
                 border: none !important;
                 background: #4b654e;
             }
-            
+
             .jqplot-event-canvas,
             .jqplot-series-shadowCanvas{
                 border: none !important;
             }
-            
-            
+
+
             .jqplot-target{
                 border: none !important;
                 font-size: 0.85em;
             }
-            
-            
+
+
         </style>        
         <!-- ############################################################### -->
     </h:head>   
     <h:body>
         <h:form id="idFormLogin">
-            <p:poll interval="5" listener="#{menu.updateMeterGaugesValue()}" update="idPanelMenu"/>
+            <p:poll interval="3" listener="#{menu.updateMeterGaugesValue()}" update="idPanelMenu"/>
             <center>
                 <p:spacer width="100%" height="2em"/>
                 <p:panel id="idPanelPrincipal" styleClass="panelPrincipal" >
@@ -70,9 +70,35 @@
                     <p:spacer width="100%" height="2em"/>
                     <p:panel id="idPanelMenu" styleClass="panelMenu" >
                         <p:panelGrid columns="2" styleClass="panelGridPrincipal">
-                        <p:chart type="metergauge" model="#{menu.meterGaugeTemperature}"    style="width:11em;height:9em; float: top" />                        
-                        <p:chart type="metergauge" model="#{menu.meterGaugeHumidity}"       style="width:11em;height:9em; float: top" />                        
+                            <p:panelGrid columns="1">
+                                <h:outputText value="#{menu.applicationBean.cpuTemp}" style="color: #ffffff; font-size: 0.6em; font-weight: bold">
+                                    <f:convertNumber type="number" pattern="CPU TEMP: ###.## ºC"/>
+                                </h:outputText>
+
+                                <h:outputText value="#{menu.applicationBean.clockFreq}" style="color: #ffffff; font-size: 0.6em; font-weight: bold">
+                                    <f:convertNumber type="number" pattern="CPU CLOCK: #### MHz"/>
+                                </h:outputText>
+                                <h:outputText value="#{menu.applicationBean.armFreq}" style="color: #ffffff; font-size: 0.6em; font-weight: bold">
+                                    <f:convertNumber type="number" pattern="ARM CLOCK: #### MHz"/>
+                                </h:outputText>                                
+                                <h:outputText value="#{menu.applicationBean.memoryTotal}" style="color: #ffffff; font-size: 0.6em; font-weight: bold">
+                                    <f:convertNumber type="number" pattern="MEMORY: #### MB"/>
+                                </h:outputText>
+                                <h:outputText value="#{menu.applicationBean.memoryUsed}" style="color: #ffffff; font-size: 0.6em; font-weight: bold">
+                                    <f:convertNumber type="number" pattern="USED: #### MB"/>
+                                </h:outputText>
+                                <h:outputText value="#{menu.applicationBean.memoryFree}" style="color: #ffffff; font-size: 0.6em; font-weight: bold">
+                                    <f:convertNumber type="number" pattern="FREE: #### MB"/>
+                                </h:outputText>   
+                                
+                                <h:outputText value="#{menu.applicationBean.lastValidRead}" style="color: #ffffff; font-size: 0.6em; font-weight: bold"/>
+                            </p:panelGrid>
+                            <p:panelGrid styleClass="panelGridPrincipal" rendered="false">
+                                <p:chart type="metergauge" model="#{menu.meterGaugeTemperature}"    style="width:11em;height:9em; float: top" />                        
+                                <p:chart type="metergauge" model="#{menu.meterGaugeHumidity}"       style="width:11em;height:9em; float: top" />                        
+                            </p:panelGrid>
                         </p:panelGrid>
+
                     </p:panel>
                 </p:panel>
             </center>

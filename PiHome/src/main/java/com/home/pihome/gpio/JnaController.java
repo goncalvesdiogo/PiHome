@@ -4,6 +4,8 @@ import com.home.pihome.bean.ApplicationBean;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.ptr.DoubleByReference;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JnaController {
 
@@ -31,13 +33,15 @@ public class JnaController {
     }
 
     public void getDht22Data(DoubleByReference temperature, DoubleByReference humidity, int tries) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         try {
             System.setProperty("jna.library.path", "/home/pi/Projetos/DhtLib/");
             DhtLib dht = (DhtLib) Native.loadLibrary("dht22.so", DhtLib.class);
+            
 
             while (dht.read_dht22_dat(7, temperature, humidity) == 0 && tries > 0) {
                 synchronized (this) {
-                    this.wait(1000);
+                    this.wait(1500);
                 }
                 tries--;
             }
@@ -45,11 +49,13 @@ public class JnaController {
             if (temperature.getValue() > 0 && humidity.getValue() > 0) {
                 applicationBean.setTemperature(temperature.getValue());
                 applicationBean.setHumidity(humidity.getValue());
-                System.out.println("Temperature: " + applicationBean.getTemperature() + " - Humidity: " + applicationBean.getHumidity());
+                applicationBean.setLastValidRead(sdf.format(new Date()) + " Temperature: " + applicationBean.getTemperature() + " - Humidity: " + applicationBean.getHumidity());
+
+                System.out.println("Time: " + sdf.format(new Date()) + " Temperature: " + applicationBean.getTemperature() + " - Humidity: " + applicationBean.getHumidity());
             } else {
                 System.out.println("Bad data...");
             }
-
+            dht = null;
         } catch (Exception e) {
             System.out.println("Exception: " + e);
         }

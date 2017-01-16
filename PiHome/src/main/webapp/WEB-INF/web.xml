@@ -26,4 +26,9 @@
         <description>ServletContextListener</description>
         <listener-class>com.home.pihome.quartz.listener.PiHomeListener</listener-class>
     </listener>
+    
+    <error-page>
+    <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+    <location>/login.xhtml</location>
+</error-page>
 </web-app>

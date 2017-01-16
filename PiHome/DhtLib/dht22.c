@@ -32,7 +32,7 @@ static uint8_t sizecvt(const int read)
 int read_dht22_dat(int DHTPIN, double* temperature, double* humidity)
 {
   
-  printf ("Raspberry Pi wiringPi DHT22 reader\n") ;
+  //printf ("Raspberry Pi wiringPi DHT22 reader\n") ;
 
   uint8_t laststate = HIGH;
   uint8_t counter = 0;
@@ -91,13 +91,13 @@ int read_dht22_dat(int DHTPIN, double* temperature, double* humidity)
        
         *temperature = t;
         *humidity       = h; 
-        delay(1500);
+        //delay(1500);
     return 1;
   }
   else
   {
-    printf("Data not good, skip\n");
-    delay(1500);
+    //printf("Data not good, skip\n");
+    delay(2000);
      return 0;
   }
 }
