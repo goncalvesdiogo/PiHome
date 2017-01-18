@@ -20,7 +20,7 @@ public class JnaController {
 
     public void initWiringPi() {
         try {
-            System.setProperty("jna.library.path", "/home/pi/Projetos/DhtLib/");
+            System.setProperty("jna.library.path", "/home/pi/Projects/DhtLib/");
             DhtLib dht = (DhtLib) Native.loadLibrary("dht22.so", DhtLib.class);
             if (dht.initWiringPi() == 0) {
                 System.out.println("Erro ao iniciar WiringPi.");
